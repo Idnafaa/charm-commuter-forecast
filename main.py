@@ -19,6 +19,8 @@ def check_line(line):
         raise ValueError("entry must be non-empty with no surrounding space")
     if "\n" in line or "\r" in line:
         raise ValueError("entry must be a single line")
+    if any(ord(ch) < 32 or ord(ch) == 127 for ch in line):
+        raise ValueError("entry must hold no control characters")
     if len(line) > 140:
         raise ValueError(f"entry is {len(line)} chars, over the 140 limit")
     line.encode("utf-8")
